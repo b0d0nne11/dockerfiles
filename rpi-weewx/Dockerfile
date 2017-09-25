@@ -79,6 +79,7 @@ RUN set -ex \
     && apk del .build
 
 COPY weewx.conf /home/weewx/weewx.conf
+COPY skin.conf /home/weewx/skins/Standard/skin.conf
 
 WORKDIR /home/weewx
 CMD bin/weewxd weewx.conf
