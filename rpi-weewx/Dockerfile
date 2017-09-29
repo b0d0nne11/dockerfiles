@@ -64,14 +64,14 @@ RUN set -ex \
     && apk del .build
 
 # Install weewx-sdr
-ENV WEEWX_SDR_REF=fca976c
+ENV WEEWX_SDR_REF=d25aec7
 RUN set -ex \
     && apk add --no-cache --virtual .build git \
     \
     && mkdir -p /usr/src/weewx-sdr \
-    && git clone git://github.com/matthewwall/weewx-sdr.git /usr/src/weewx-sdr \
+    && git clone git://github.com/b0d0nne11/weewx-sdr.git /usr/src/weewx-sdr \
     && cd /usr/src/weewx-sdr \
-    && git checkout ${WEEEX_SDR_REF} \
+    && git checkout ${WEEWX_SDR_REF} \
     \
     && /home/weewx/bin/wee_extension --install /usr/src/weewx-sdr \
     \
