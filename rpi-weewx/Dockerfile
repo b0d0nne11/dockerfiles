@@ -78,8 +78,39 @@ RUN set -ex \
     && rm -rf /usr/src/ \
     && apk del .build
 
+# Install Adafruit_Python_GPIO
+ENV ADAFRUIT_GPIO_REF=22a1ff4
+RUN set -ex \
+    && apk add --no-cache --virtual .build git gcc musl-dev python2-dev linux-headers \
+    \
+    && mkdir -p /usr/src/Adafruit_Python_GPIO \
+    && git clone git://github.com/adafruit/Adafruit_Python_GPIO.git /usr/src/Adafruit_Python_GPIO \
+    && cd /usr/src/Adafruit_Python_GPIO \
+    && git checkout ${ADAFRUIT_GPIO_REF} \
+    \
+    && python setup.py install \
+    \
+    && rm -rf /usr/src/ \
+    && apk del .build
+
+# Install Adafruit_Python_BME280
+ENV ADAFRUIT_BME280_REF=68dda31
+RUN set -ex \
+    && apk add --no-cache --virtual .build git \
+    \
+    && mkdir -p /usr/src/Adafruit_Python_BME280 \
+    && git clone git://github.com/adafruit/Adafruit_Python_BME280.git /usr/src/Adafruit_Python_BME280 \
+    && cd /usr/src/Adafruit_Python_BME280 \
+    && git checkout ${ADAFRUIT_BME280_REF} \
+    \
+    && python setup.py install \
+    \
+    && rm -rf /usr/src/ \
+    && apk del .build
+
 COPY weewx.conf /home/weewx/weewx.conf
 COPY skin.conf /home/weewx/skins/Standard/skin.conf
+COPY bme280.py /home/weewx/bin/user/bme280.py
 
 WORKDIR /home/weewx
 CMD bin/weewxd weewx.conf
