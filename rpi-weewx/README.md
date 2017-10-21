@@ -13,4 +13,13 @@ To run:
 ```
 docker run -d --name weewx-data -v /home/weewx/archive busybox:latest /bin/true
 docker run -d --name weewx --volumes-from weewx-data -v /var/www/brendan.odonnell.xyz/weather:/home/weewx/public_html --privileged -v /dev/bus/usb:/dev/bus/usb odonnell.xyz/rpi-weewx:latest
+
+To use the SQLite CLI:
+```
+docker run -ti --rm --volumes-from weewx-data odonnell.xyz/rpi-weewx:latest sqlite3 archive/weewx.sdb
+```
+
+To test the SDR module:
+```
+docker run -ti --rm -e PYTHONPATH=bin --privileged -v /dev/bus/usb:/dev/bus/usb odonnell.xyz/rpi-weewx:latest bin/user/sdr.py
 ```
