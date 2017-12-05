@@ -110,6 +110,7 @@ RUN set -ex \
 
 COPY weewx.conf /home/weewx/weewx.conf
 COPY skin.conf /home/weewx/skins/Standard/skin.conf
+COPY index.html.tmpl /home/weewx/skins/Standard/index.html.tmpl
 COPY bme280.py /home/weewx/bin/user/bme280.py
 
 WORKDIR /home/weewx
