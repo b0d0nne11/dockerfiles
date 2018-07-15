@@ -27,10 +27,10 @@ class BME280Service(StdService):
             self._init_sensor()
         try:
             assert self.sensor is not None, "sensor is not initialized"
+            self.sensor.read_temperature()
+            self.sensor.read_humidity()
             sample = self.converter.convertDict({
                 'usUnits': weewx.METRIC,
-                'inTemp': self.sensor.read_temperature(),
-                'inHumidity': self.sensor.read_humidity(),
                 'pressure': self.sensor.read_pressure()/100,
             })
             print 'BME280: sample: {}'.format(sample)

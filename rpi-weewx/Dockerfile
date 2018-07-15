@@ -5,14 +5,14 @@ ENV PATH /usr/local/bin:$PATH
 
 # Install run-time dependancies
 RUN set -ex \
-    && apk add --no-cache python2 libusb-dev freetype-dev jpeg-dev sqlite
+    && apk add --no-cache python2 libusb-dev freetype-dev jpeg-dev sqlite mariadb-dev
 
 # Install weewx
 ENV WEEWX_REF=v3.7.1
 RUN set -ex \
     && apk add --no-cache --virtual .build git gcc musl-dev python2-dev py2-pip \
     \
-    && pip install --no-cache-dir configobj Cheetah pillow pyusb pyephem \
+    && pip install --no-cache-dir configobj Cheetah pillow pyusb pyephem mysql-python \
     \
     && mkdir -p /usr/src/weewx \
     && git clone git://github.com/weewx/weewx.git /usr/src/weewx \
